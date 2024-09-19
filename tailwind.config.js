@@ -14,6 +14,9 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      colors: {
+        "primary": "#FD8F01",
+      },
       animation: {
         scroll: 'scroll 5s linear infinite',
       },

@@ -12,18 +12,27 @@ main {
   @apply w-[96%] max-w-[1440px] mx-auto;
 }
 
-.layout{
+.layout {
   @apply w-[92%] max-w-[1100px] mx-auto;
 }
 
-.main{
+.main {
   background: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.02)), url('/images/main-bg.png');
+}
+
+
+h2 {
+  @apply text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold;
+}
+
+.body-text{
+  @apply text-base md:text-lg xl:text-2xl text-center font-thin mt-4
 }
 
 
 .dots-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 10px); 
+  grid-template-columns: repeat(auto-fill, 10px);
   grid-auto-rows: 10px;
   gap: 10px !important;
   width: 100%;
@@ -41,4 +50,3 @@ main {
   justify-content: center;
   align-items: center;
 }
-

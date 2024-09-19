@@ -1,4 +1,4 @@
-import { Hero } from "@/components";
+import { Hero, HowItWorks } from "@/components";
 import CompanyScroller from "@/components/company-scroller";
 import TinyDots from "@/components/core/tiny-dots";
 import Link from "next/link";
@@ -16,6 +16,7 @@ export default function Home() {
           <TinyDots />
           <div className="relative z-10">
             <Hero />
+            <HowItWorks />
           </div>
 
         </div>
