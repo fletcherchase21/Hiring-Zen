@@ -30,12 +30,12 @@ const Hero = () => {
       <img
         src={hero.left}
         alt=""
-        className='absolute top-1/2 translate-y-[-50%] left-0 w-20 md:w-32 xl:w-48 object-contain'
+        className='absolute bottom-0 md:top-1/2 translate-y-[-50%] left-0 w-20 md:w-32 xl:w-48 object-contain -z-10'
       />
       <img
         src={hero.right}
         alt=""
-        className='absolute top-1/2 translate-y-[-50%] right-0 w-20 md:w-32 xl:w-48 object-contain'
+        className='absolute top-0 md:top-1/2 translate-y-[-50%] right-0 w-20 md:w-32 xl:w-48 object-contain -z-10'
       />
     </div>
 
