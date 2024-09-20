@@ -11,19 +11,19 @@ const HowItWorks = () => {
   const steps = [
     {
       title: 'Subscribe',
-      description: "Choose a subscription plan that fits your hiring needs. With options for 3, 6, or 12 months, you can select the level of service that works best for you.",
+      description: "Select a 3, 6, or 12-month plan tailored to your hiring needs.",
       image: "/images/how/subscribe.gif",
       bg: "/images/how/bg-1.svg"
     },
     {
       title: 'Hire',
-      description: "Work closely with your dedicated account manager to define the role you need to fill. We’ll manage the entire recruitment process for you, from sourcing candidates to scheduling interviews and extending offers.",
+      description: "Your account manager oversees recruitment, from sourcing to offer extension.",
       image: "/images/how/hire.gif",
       bg: "https://cdn.prod.website-files.com/5837424ae11409586f837994/65de7adeb3387e4c9926e14c_43.svg"
     },
     {
       title: 'Succeed',
-      description: "With our expert team handling your hiring needs, you can focus on growing your business. Experience the confidence and peace of mind that comes from knowing you have the right talent in place to drive your success.",
+      description: "Focus on growth while we secure top talent to drive your business forward.",
       image: "/images/how/succeed-tp.gif",
       bg: "https://cdn.prod.website-files.com/5837424ae11409586f837994/65de7bd8468ed677a5da9a2d_60.svg"
     }
