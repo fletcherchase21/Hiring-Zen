@@ -16,6 +16,9 @@ module.exports = {
       },
       colors: {
         "primary": "#FD8F01",
+        "black-1": "#1A1A1A",
+        "black-2": "#333333",
+        "black-3": "#4D4D4D",
       },
       animation: {
         scroll: 'scroll 5s linear infinite',

@@ -1,37 +1,49 @@
 'use client'
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 export default function TinyDots() {
-  const containerRef = useRef(null);
-  const [dots, setDots] = useState([]);
+  const canvasRef = useRef(null);
 
   useEffect(() => {
-    const calculateDots = () => {
-      if (containerRef.current) {
-        const { width, height } = containerRef.current.getBoundingClientRect();
-        const dotsInRow = Math.floor(width / 12);
-        const dotsInCol = Math.floor(height / 12);
-        const totalDots = dotsInRow * dotsInCol;
-        setDots(Array.from({ length: totalDots }));
+    const drawDots = () => {
+      const canvas = canvasRef.current;
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        const { width, height } = canvas.getBoundingClientRect();
+        canvas.width = width;
+        canvas.height = height;
+
+        const dotSize = 2;
+        const gap = 20;
+        const dotsInRow = Math.floor(width / gap);
+        const dotsInCol = Math.floor(height / gap);
+
+        ctx.clearRect(0, 0, width, height);
+
+        for (let y = 0; y < dotsInCol; y++) {
+          for (let x = 0; x < dotsInRow; x++) {
+            const posX = x * gap;
+            const posY = y * gap;
+            ctx.beginPath();
+            ctx.arc(posX, posY, dotSize / 2, 0, Math.PI * 2);
+            ctx.fillStyle = '#cbcbcb' // Set the dot color
+            ctx.fill();
+          }
+        }
       }
     };
-    calculateDots();
-    window.addEventListener('resize', calculateDots);
+
+    drawDots();
+    window.addEventListener('resize', drawDots);
 
     return () => {
-      window.removeEventListener('resize', calculateDots);
+      window.removeEventListener('resize', drawDots);
     };
   }, []);
 
   return (
-    <div className="absolute inset-0 w-full h-full z-0" ref={containerRef}>
-      <div className="relative w-full h-full dots-container bg-red">
-        {dots.map((_, index) => (
-          <div className='flex justify-center items-center'>
-            <div key={index} className="dot"></div>
-          </div>
-        ))}
-      </div>
+    <div className="absolute inset-0 w-full h-full z-0">
+      <canvas ref={canvasRef} className="w-full h-full"></canvas>
     </div>
   );
 }

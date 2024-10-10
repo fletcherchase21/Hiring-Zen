@@ -1,13 +1,15 @@
 import { AboutUs, Hero, HowItWorks, WhyChooseUs } from "@/components";
 import CompanyScroller from "@/components/company-scroller";
 import TinyDots from "@/components/core/tiny-dots";
+import { FAQ } from "@/components/faq";
+import { PricingCalculator } from "@/components/pricing-calculator";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
   return (
     <>
-      <main className="">
+      <main className="scroll-smooth">
         <div className="w-full">
           <Link href="/" className="py-2 flex items-center">
             {/* <span className="text-xl md:text-2xl xl:text-4xl text-center block my-2 md:my-5 font-bold">Hiring Zen</span> */}
@@ -27,6 +29,8 @@ export default function Home() {
             <AboutUs />
             <WhyChooseUs />
             <HowItWorks />
+            <PricingCalculator />
+            <FAQ />
           </div>
 
         </div>
