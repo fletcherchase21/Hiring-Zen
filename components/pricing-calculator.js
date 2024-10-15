@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { toast } from 'react-toastify';
 
 const PricingCalculator = () => {
 	const [plan, setPlan] = useState('3 Month');
@@ -67,24 +68,6 @@ const PricingCalculator = () => {
 		setContact({ ...contact, [name]: value });
 	};
 
-	const sendQuoteEmail = async (e) => {
-		e.preventDefault();
-
-		const response = await fetch('/api/sendEmail', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ contact, plan, additionalRoles, quote }),
-		});
-
-		if (response.ok) {
-			alert('Quote emailed successfully!');
-			setShowEmailForm(false);
-		} else {
-			alert('Failed to send quote.');
-		}
-	};
 
 	const TabButton = ({ id, label, labelSmall }) => (
 		<button
@@ -94,7 +77,6 @@ const PricingCalculator = () => {
 				showEmailForm && calculateQuote()
 			}}
 		>
-			{/* {id} */}
 			{label} {labelSmall && <span className='block text-xs'>({labelSmall})</span>}
 		</button>
 	);
@@ -116,6 +98,40 @@ const PricingCalculator = () => {
 			labelSmall: '12-Month Package',
 		}
 	]
+
+	const [isSubmitting, setIsSubmitting] = useState(false);
+
+	const sendQuoteEmail = async (e) => {
+		e.preventDefault();
+		setIsSubmitting(true);
+		try {
+			const response = await fetch('/api/sendMail', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ contact, plan, additionalRoles, quote }),
+			});
+
+			const result = await response.json();
+
+			if (response.ok && result.success) {
+				toast.success('Message sent successfully');
+			} else {
+				toast.error(result.message || 'Failed to send message');
+			}
+		} catch (error) {
+			console.error('Error:', error);
+			toast.error('An error occurred while sending the message');
+		}
+		finally {
+			setIsSubmitting(false);
+			setContact({ name: '', email: '', phone: '', message: '' });
+		}
+	};
+
+
+
 
 	return (
 		<>
@@ -141,6 +157,7 @@ const PricingCalculator = () => {
 					{/* Plan Features with Animation */}
 					<AnimatePresence mode="wait">
 						<motion.div
+
 							key={plan}
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
@@ -246,9 +263,10 @@ const PricingCalculator = () => {
 								</div>
 								<button
 									type="submit"
-									className="w-full bg-primary/90 text-white py-2 px-4 rounded hover:bg-primary transition-all"
+									className="w-full bg-primary/90 text-white py-2 px-4 rounded hover:bg-primary transition-all disabled:opacity-80 disabled:cursor-not-allowed"
+									disabled={quote === null || contact.name === '' || contact.email === '' || isSubmitting}
 								>
-									Send Quote
+									{isSubmitting ? 'Sending...' : 'Send Quote'}
 								</button>
 							</form>
 						</motion.div>

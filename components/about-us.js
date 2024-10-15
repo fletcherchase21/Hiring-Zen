@@ -6,7 +6,7 @@ const AboutUs = () => {
       {/* Left side image */}
       <div className="w-full md:w-1/2 flex justify-center mb-6 md:mb-0">
         <Image
-          src="/images/about.webp" // Replace with your image path
+          src="/images/about.png"
           alt="Hiring Zen office"
           width={500}
           height={500}
