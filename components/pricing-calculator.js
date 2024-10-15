@@ -1,20 +1,32 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'react-toastify';
 
 const PricingCalculator = () => {
 	const [plan, setPlan] = useState('3 Month');
 	const [additionalRoles, setAdditionalRoles] = useState(0);
+	const [additionalExecutiveRoles, setAdditionalExecutiveRoles] = useState(0);
 	const [quote, setQuote] = useState(null);
 	const [contact, setContact] = useState({ name: '', email: '', phone: '', message: '' });
 	const [showEmailForm, setShowEmailForm] = useState(false);
 
+	const initialTotals = [
+		{ label: 'Base Price', value: 0 },
+		{ label: 'Base Price with VAT', value: 0 },
+		{ label: 'Additional Roles Total', value: 0 },
+		{ label: 'Additional Executive Roles Total', value: 0 },
+	];
+
+	const [totals, setTotals] = useState(initialTotals);
+
 	const pricingPlans = {
 		'3 Month': {
 			name: "Zen Starter (3-Month Package)",
+			durationInMonth: 3,
 			base: 2325,
 			additional: 930,
+			additionalExecutive: 1000,
 			features: [
 				'Unlimited Roles (1 role at a time)',
 				'Dedicated recruiter support.',
@@ -26,8 +38,10 @@ const PricingCalculator = () => {
 		},
 		'6 Month': {
 			name: "Zen Growth (6-Month Package)",
+			durationInMonth: 6,
 			base: 2045,
 			additional: 835,
+			additionalExecutive: 900,
 			features: [
 				'Unlimited Roles (1 role at a time)',
 				'Dedicated recruiter support.',
@@ -39,8 +53,10 @@ const PricingCalculator = () => {
 		},
 		'12 Month': {
 			name: "Zen Elite (12-Month Package)",
+			durationInMonth: 12,
 			base: 1875,
 			additional: 700,
+			additionalExecutive: 800,
 			features: [
 				'Unlimited Roles (1 role at a time)',
 				'Dedicated recruiter support.',
@@ -54,10 +70,19 @@ const PricingCalculator = () => {
 
 	const calculateQuote = () => {
 		const basePrice = pricingPlans[plan].base;
-		const additionalPrice = pricingPlans[plan].additional * additionalRoles;
+		const additionalPrice = pricingPlans[plan].additional * additionalRoles + pricingPlans[plan].additionalExecutive * additionalExecutiveRoles;
 		const total = basePrice + additionalPrice;
 		const vat = total * 0.23;
 		const finalTotal = total + vat;
+
+		const month = pricingPlans[plan].durationInMonth;
+
+		setTotals([
+			{ ...totals[0], value: basePrice * month },
+			{ ...totals[1], value: basePrice * month * 1.23 },
+			{ ...totals[2], value: (basePrice + pricingPlans[plan].additional) * month * 1.23 },
+			{ ...totals[3], value: finalTotal * month },
+		]);
 
 		setQuote(finalTotal.toFixed(2));
 		setShowEmailForm(true);
@@ -69,15 +94,23 @@ const PricingCalculator = () => {
 	};
 
 
+	useEffect(() => {
+		if (showEmailForm) {
+			calculateQuote();
+		}
+		// if (additionalExecutiveRoles > additionalRoles) {
+		// 	setAdditionalRoles(additionalExecutiveRoles);
+		// }
+	}, [plan, additionalRoles, additionalExecutiveRoles, showEmailForm]);
+
 	const TabButton = ({ id, label, labelSmall }) => (
 		<button
 			className={` py-2 px-4 w-full text-center transition-all ${plan === id ? 'bg-primary text-black rounded-full' : 'border-transparent text-gray-50'}`}
 			onClick={() => {
 				setPlan(id)
-				showEmailForm && calculateQuote()
 			}}
 		>
-			{label} {labelSmall && <span className='block text-xs'>({labelSmall})</span>}
+			{label} {labelSmall && <span className='hidden md:block text-xs'>({labelSmall})</span>}
 		</button>
 	);
 
@@ -110,7 +143,7 @@ const PricingCalculator = () => {
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({ contact, plan, additionalRoles, quote }),
+				body: JSON.stringify({ contact, plan, additionalRoles, additionalExecutiveRoles, quote }),
 			});
 
 			const result = await response.json();
@@ -132,12 +165,32 @@ const PricingCalculator = () => {
 
 
 
+	const handleAdditionalRolesChange = (e) => {
+		const newAdditionalRoles = Number(e.target.value);
+		if (newAdditionalRoles < additionalExecutiveRoles) {
+			setAdditionalExecutiveRoles(newAdditionalRoles);
+		}
+		setAdditionalRoles(newAdditionalRoles);
+	};
+	const handleAdditionalExecutiveRolesChange = (e) => {
+		const newAdditionalExecutiveRoles = Number(e.target.value);
+		if (newAdditionalExecutiveRoles > additionalExecutiveRoles && newAdditionalExecutiveRoles > additionalRoles) {
+			setAdditionalRoles((prev) => prev + (newAdditionalExecutiveRoles - additionalExecutiveRoles));
+		}
+		if (newAdditionalExecutiveRoles < additionalExecutiveRoles && newAdditionalExecutiveRoles > additionalRoles) {
+			setAdditionalRoles((prev) => Math.max(prev - (additionalExecutiveRoles - newAdditionalExecutiveRoles), 0));
+		}
+		setAdditionalExecutiveRoles(newAdditionalExecutiveRoles);
+	};
+
+
+
 
 	return (
 		<>
 			<div className='flex flex-col md:flex-row gap-10 layout py-12 md:py-16 border' id='pricing'>
 				{/* Pricing Section */}
-				<div className={`${showEmailForm ? 'md:w-1/2' : 'w-full'} max-w-screen-sm mx-auto p-6 bg-white shadow-lg rounded-lg flex flex-col`}>
+				<div className={`${showEmailForm ? 'md:w-1/2' : 'w-full'} max-w-screen-sm mx-auto p-2 md:p-6 bg-white shadow-lg rounded-lg flex flex-col`}>
 					<div>
 						<h1 className="text-2xl font-bold mb-6 text-center">Hiring Zen Pricing Calculator</h1>
 						<div className="flex justify-around border-b mb-4 bg-black rounded-full p-1">
@@ -154,10 +207,8 @@ const PricingCalculator = () => {
 						</div>
 					</div>
 
-					{/* Plan Features with Animation */}
 					<AnimatePresence mode="wait">
 						<motion.div
-
 							key={plan}
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
@@ -165,14 +216,11 @@ const PricingCalculator = () => {
 							transition={{ duration: 0.3 }}
 							className="h-full flex flex-col justify-between"
 						>
-							<div className=''>
+							<div className='p-4 md:p-0'>
 								<div>
-
-									{/* <h3 className="text-lg font-semibold mb-2">{plan} Plan Features:</h3> */}
-									{/* base price */}
 									<div className="my-1">
+										<label className="block md:hidden text-gray-700 font-semibold">{pricingPlans[plan].name}</label>
 										<label className="block text-gray-700 font-semibold text-lg">Base Price: <span className="text-gray-700 text-2xl">€{pricingPlans[plan].base}</span>/month</label>
-
 									</div>
 									<p>What's included:</p>
 									<ul className="list-disc list-inside text-gray-700">
@@ -181,16 +229,33 @@ const PricingCalculator = () => {
 										))}
 									</ul>
 								</div>
-								<div className="my-4">
-									<label className="block text-gray-700 font-semibold">Additional Roles:</label>
-									<input
-										type="number"
-										value={additionalRoles}
-										onChange={(e) => setAdditionalRoles(Number(e.target.value))}
-										min="0"
-										className="w-full mt-2 p-2 border border-gray-300 rounded"
-										placeholder="Number of additional roles"
-									/>
+								<div className="my-4 flex flex-col md:flex-row gap-4 items-center">
+									<div className='w-full'>
+										<label className="block text-gray-700 font-semibold">Additional Roles:</label>
+										<input
+											type="number"
+											value={additionalRoles}
+											// onChange={(e) => setAdditionalRoles(Number(e.target.value))}
+											onChange={handleAdditionalRolesChange}
+											min="0"
+											max={999}
+											className="w-full mt-2 p-2 border border-gray-300 rounded"
+											placeholder="Number of additional roles"
+										/>
+									</div>
+									<div className='w-full'>
+										<label className="block text-gray-700 font-semibold">Additional Executive Roles:</label>
+										<input
+											type="number"
+											value={additionalExecutiveRoles}
+											// onChange={(e) => setAdditionalExecutiveRoles(Number(e.target.value))}
+											onChange={handleAdditionalExecutiveRolesChange}
+											min="0"
+											max={999}
+											className="w-full mt-2 p-2 border border-gray-300 rounded"
+											placeholder="Number of additional roles"
+										/>
+									</div>
 								</div>
 							</div>
 
@@ -204,7 +269,6 @@ const PricingCalculator = () => {
 					</AnimatePresence>
 				</div>
 
-				{/* Email Form Section with Animation */}
 				<AnimatePresence>
 					{showEmailForm && (
 						<motion.div
@@ -212,7 +276,7 @@ const PricingCalculator = () => {
 							animate={{ opacity: 1, x: 0 }}
 							exit={{ opacity: 0, x: 50 }}
 							transition={{ duration: 0.5 }}
-							className="md:w-1/2 bg-black-1 text-white p-6 rounded-lg shadow-lg flex flex-col"
+							className="md:w-1/2 bg-black-1 text-white px-4 py-6 md:p-6 rounded-lg shadow-lg flex flex-col"
 						>
 							<div>
 								<h3 className="text-lg font-semibold mb-4 text-center">Send Your Quote</h3>
@@ -220,12 +284,27 @@ const PricingCalculator = () => {
 									<div className="my-6">
 										<h2 className="text-xl font-semibold text-center">
 											{/* Your Total Quote: €{quote} */}
-											<span className='text-5xl'>€ {quote}</span> / month
+											<span className='text-3xl xl:text-5xl'>€ {quote}</span> / month
+											<br />
+											<span className='text-xs md:text-sm'>
+												(including VAT)
+											</span>
 										</h2>
 									</div>
 								)}
 							</div>
-							<form onSubmit={sendQuoteEmail} className="h-full flex flex-col justify-between ">
+							<div>
+								<h2 className="text-lg">Total Summary for {pricingPlans[plan].durationInMonth} month</h2>
+								<div className="mt-1 my-3">
+									{totals.map((item) => (
+										<p key={item.label}>
+											<span className="">{item.label}:</span> € {item.value.toFixed(2)}
+										</p>
+									))}
+								</div>
+							</div>
+
+							<form onSubmit={sendQuoteEmail} className="h-full flex flex-col gap-5 justify-between ">
 								<div className='space-y-4'>
 									<input
 										type="text"
