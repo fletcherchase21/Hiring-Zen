@@ -38,6 +38,10 @@ export async function POST(request) {
               <td style="padding: 10px; border-bottom: 1px solid #ddd;">${contact.name}</td>
             </tr>
             <tr>
+              <td style="padding: 10px; border-bottom: 1px solid #ddd;">Company Name</td>
+              <td style="padding: 10px; border-bottom: 1px solid #ddd;">${contact.companyName}</td>
+            </tr>
+            <tr>
               <td style="padding: 10px; border-bottom: 1px solid #ddd;">Email</td>
               <td style="padding: 10px; border-bottom: 1px solid #ddd;">${contact.email}</td>
             </tr>

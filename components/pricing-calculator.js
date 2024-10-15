@@ -8,7 +8,7 @@ const PricingCalculator = () => {
 	const [additionalRoles, setAdditionalRoles] = useState(0);
 	const [additionalExecutiveRoles, setAdditionalExecutiveRoles] = useState(0);
 	const [quote, setQuote] = useState(null);
-	const [contact, setContact] = useState({ name: '', email: '', phone: '', message: '' });
+	const [contact, setContact] = useState({ name: '', companyName: '', email: '', phone: '', message: '' });
 	const [showEmailForm, setShowEmailForm] = useState(false);
 
 	const initialTotals = [
@@ -159,13 +159,13 @@ const PricingCalculator = () => {
 		}
 		finally {
 			setIsSubmitting(false);
-			setContact({ name: '', email: '', phone: '', message: '' });
+			setContact({ name: '', companyName: '', email: '', phone: '', message: '' });
 		}
 	};
 
 
 
-	const handleAdditionalRolesChange = (e) => {
+	{/* const handleAdditionalRolesChange = (e) => {
 		const newAdditionalRoles = Number(e.target.value);
 		if (newAdditionalRoles < additionalExecutiveRoles) {
 			setAdditionalExecutiveRoles(newAdditionalRoles);
@@ -181,7 +181,29 @@ const PricingCalculator = () => {
 			setAdditionalRoles((prev) => Math.max(prev - (additionalExecutiveRoles - newAdditionalExecutiveRoles), 0));
 		}
 		setAdditionalExecutiveRoles(newAdditionalExecutiveRoles);
-	};
+	}; */}
+
+	const handleAdditionalRolesChange = (e) => {
+    const value = e.target.value;
+    const newAdditionalRoles = value === '' ? '' : Number(value);
+    if (newAdditionalRoles !== '' && newAdditionalRoles < additionalExecutiveRoles) {
+        setAdditionalExecutiveRoles(newAdditionalRoles);
+    }
+    setAdditionalRoles(newAdditionalRoles);
+};
+
+const handleAdditionalExecutiveRolesChange = (e) => {
+    const value = e.target.value;
+    const newAdditionalExecutiveRoles = value === '' ? '' : Number(value);
+    if (newAdditionalExecutiveRoles > additionalExecutiveRoles && newAdditionalExecutiveRoles > additionalRoles) {
+        setAdditionalRoles((prev) => prev + (newAdditionalExecutiveRoles - additionalExecutiveRoles));
+    }
+    if (newAdditionalExecutiveRoles < additionalExecutiveRoles && newAdditionalExecutiveRoles > additionalRoles) {
+        setAdditionalRoles((prev) => Math.max(prev - (additionalExecutiveRoles - newAdditionalExecutiveRoles), 0));
+    }
+    setAdditionalExecutiveRoles(newAdditionalExecutiveRoles);
+};
+
 
 
 
@@ -235,7 +257,6 @@ const PricingCalculator = () => {
 										<input
 											type="number"
 											value={additionalRoles}
-											// onChange={(e) => setAdditionalRoles(Number(e.target.value))}
 											onChange={handleAdditionalRolesChange}
 											min="0"
 											max={999}
@@ -248,12 +269,11 @@ const PricingCalculator = () => {
 										<input
 											type="number"
 											value={additionalExecutiveRoles}
-											// onChange={(e) => setAdditionalExecutiveRoles(Number(e.target.value))}
 											onChange={handleAdditionalExecutiveRolesChange}
 											min="0"
 											max={999}
 											className="w-full mt-2 p-2 border border-gray-300 rounded"
-											placeholder="Number of additional roles"
+											placeholder="Number of additional executive roles"
 										/>
 									</div>
 								</div>
@@ -311,6 +331,15 @@ const PricingCalculator = () => {
 										name="name"
 										placeholder="Your Name"
 										value={contact.name}
+										onChange={handleContactChange}
+										className="w-full p-2 border border-gray-300 rounded bg-black-2"
+										required
+									/>
+									<input
+										type="text"
+										name="companyName"
+										placeholder="Your Company Name"
+										value={contact.companyName}
 										onChange={handleContactChange}
 										className="w-full p-2 border border-gray-300 rounded bg-black-2"
 										required
