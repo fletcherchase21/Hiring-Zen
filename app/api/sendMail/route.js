@@ -18,7 +18,8 @@ export async function POST(request) {
       // from: process.env.EMAIL_USER,
       // to: "amdad.zatiq@gmail.com",  
       from: contact.email,
-      to: process.env.EMAIL_TO,
+      // to: process.env.EMAIL_TO,
+      to: "amdad.zatiq@gmail.com",
       subject: `Quote for ${plan} from ${contact.name}`,
       html: `
 <h1 style="text-align: center; margin: 20px 0;">Quote for ${plan}</h1>
