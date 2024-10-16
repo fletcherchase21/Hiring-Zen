@@ -32,7 +32,7 @@ const HowItWorks = () => {
     <div className='relative'>
       <div className='py-20 md:py-24 xl:py-28'>
         <div className='layout'>
-          <h2 className=' text-center max-w-[800px] mx-auto'>Three Simple Steps to Success</h2>
+          <h2 className=' text-center max-w-[800px] mx-auto'>How it works</h2>
           <p className='body-text text-center w-[80%] max-w-[550px] mx-auto'>
             At Hiring Zen, we make recruitment simple and effective with a three-step process
             {/* : <br /> <span className='font-bold'>Subscribe, Hire, Succeed.</span> */}

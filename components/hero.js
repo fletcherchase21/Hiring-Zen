@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import Button from './core/button'
 import CompanyScroller from './company-scroller'

@@ -25,6 +25,9 @@ h2 {
   @apply text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold;
 }
 
+p{
+  @apply text-base md:text-lg;
+}
 .body-text{
   @apply text-base md:text-lg xl:text-2xl text-center font-thin mt-4
 }

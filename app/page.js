@@ -1,8 +1,5 @@
-import { AboutUs, Hero, HowItWorks, WhyChooseUs } from "@/components";
-import CompanyScroller from "@/components/company-scroller";
+import { AboutUs, CTA, FAQ, Hero, HowItWorks, Overwhelmed, PricingCalculator, WhyChooseUs } from "@/components";
 import TinyDots from "@/components/core/tiny-dots";
-import { FAQ } from "@/components/faq";
-import { PricingCalculator } from "@/components/pricing-calculator";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -28,7 +25,9 @@ export default function Home() {
             <Hero />
             <AboutUs />
             <WhyChooseUs />
+            <Overwhelmed />
             <HowItWorks />
+            <CTA />
             <PricingCalculator />
             <FAQ />
           </div>

@@ -1,25 +1,60 @@
 import Image from 'next/image';
+import { BsFileText, BsChatSquareDots } from 'react-icons/bs';
+import { FaUserCheck, FaRegHandshake } from 'react-icons/fa';
+
+const steps = [
+  { icon: <BsFileText />, text: 'Writing the perfect job description' },
+  { icon: <FaUserCheck />, text: 'Sourcing quality candidates' },
+  { icon: <BsChatSquareDots />, text: 'Managing interviews' },
+  { icon: <FaRegHandshake />, text: 'Delivering the final offer' },
+];
 
 const AboutUs = () => {
   return (
-    <section className="flex flex-col md:flex-row items-center p-6 md:p-12">
-      {/* Left side image */}
-      <div className="w-full md:w-1/2 flex justify-center mb-6 md:mb-0">
-        <Image
-          src="/images/about.png"
-          alt="Hiring Zen office"
-          width={500}
-          height={500}
-          className="object-cover rounded-lg"
-        />
-      </div>
+    <section className="layout-wide py-10 md:py-12 xl:py-16 ">
+      <div className='flex flex-col lg:flex-row gap-5 items-center'>
+        <div className="w-full lg:w-[45%] flex justify-center mb-6 md:mb-0 bg-white rounded-lg lg:rounded-xl">
+          <Image
+            src="/images/about.svg"
+            alt="Hiring Zen office"
+            width={500}
+            height={500}
+            className="object-contain rounded-lg lg:rounded-xl w-full h-auto"
+          />
+        </div>
+        <div className="w-full lg:w-[55%] md:pl-8 text-center md:text-left">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-4 max-w-[%] !leading-snug">Meet Hiring Zen: Your Recruitment Partner on Subscription</h2>
+          <p className="leading-relaxed">
+            We simplify the entire hiring process for you. From start to finish, we take care of
+            everything –
+          </p>
+          <br />
+          <div className="flex flex-col space-y-4">
+            {steps.map((step, index) => (
+              <div key={index} className="flex items-center space-x-4">
+                <div className="bg-primary text-white p-3 rounded-full text-lg">
+                  {step.icon}
+                </div>
+                <span className="text-lg">{step.text}</span>
+              </div>
+            ))}
+          </div>
+          <p className="leading-snug">
+            <br />
+            No stress, no hidden costs, just reliable recruitment delivered straight to your inbox.
+            <br />
+            <span className='mt-2 inline-block'>
+              All you need to do is choose one of our flexible subscription plans—whether it’s 3, 6, or
+              12 months—and focus on what matters most: growing your business.
+            </span>
+            <br />
+            <span className='font-bold'>No costly recruitment agencies.</span> <br />
+            <span className='font-bold'>No confusion.</span> <br />
+            <span></span>
+            Just transparent, end-to-end recruitment tailored for your needs, <span className="font-bold">one role at a time</span>
 
-      {/* Right side text */}
-      <div className="w-full md:w-1/2 md:pl-8 text-center md:text-left">
-        <h2 className="text-2xl md:text-3xl font-semibold mb-4">About Us</h2>
-        <p className="text-gray-700 leading-relaxed">
-          At Hiring Zen, we simplify recruitment for small and medium enterprises (SMEs) by offering end-to-end talent acquisition solutions on a subscription basis. Designed for industries like IT, technology, and consulting, we provide a full-service recruitment process, from crafting the perfect job description to sourcing, interviewing, and delivering offers. With no need for costly recruitment agencies, we allow you to focus on your business while we handle your hiring needs – one role at a time.
-        </p>
+          </p>
+        </div>
       </div>
     </section>
   );

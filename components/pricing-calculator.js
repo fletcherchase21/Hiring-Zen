@@ -165,15 +165,18 @@ const PricingCalculator = () => {
 
 
 
-	{/* const handleAdditionalRolesChange = (e) => {
-		const newAdditionalRoles = Number(e.target.value);
-		if (newAdditionalRoles < additionalExecutiveRoles) {
+	const handleAdditionalRolesChange = (e) => {
+		const value = e.target.value;
+		const newAdditionalRoles = value === '' ? '' : Number(value);
+		if (newAdditionalRoles !== '' && newAdditionalRoles < additionalExecutiveRoles) {
 			setAdditionalExecutiveRoles(newAdditionalRoles);
 		}
 		setAdditionalRoles(newAdditionalRoles);
 	};
+
 	const handleAdditionalExecutiveRolesChange = (e) => {
-		const newAdditionalExecutiveRoles = Number(e.target.value);
+		const value = e.target.value;
+		const newAdditionalExecutiveRoles = value === '' ? '' : Number(value);
 		if (newAdditionalExecutiveRoles > additionalExecutiveRoles && newAdditionalExecutiveRoles > additionalRoles) {
 			setAdditionalRoles((prev) => prev + (newAdditionalExecutiveRoles - additionalExecutiveRoles));
 		}
@@ -181,28 +184,7 @@ const PricingCalculator = () => {
 			setAdditionalRoles((prev) => Math.max(prev - (additionalExecutiveRoles - newAdditionalExecutiveRoles), 0));
 		}
 		setAdditionalExecutiveRoles(newAdditionalExecutiveRoles);
-	}; */}
-
-	const handleAdditionalRolesChange = (e) => {
-    const value = e.target.value;
-    const newAdditionalRoles = value === '' ? '' : Number(value);
-    if (newAdditionalRoles !== '' && newAdditionalRoles < additionalExecutiveRoles) {
-        setAdditionalExecutiveRoles(newAdditionalRoles);
-    }
-    setAdditionalRoles(newAdditionalRoles);
-};
-
-const handleAdditionalExecutiveRolesChange = (e) => {
-    const value = e.target.value;
-    const newAdditionalExecutiveRoles = value === '' ? '' : Number(value);
-    if (newAdditionalExecutiveRoles > additionalExecutiveRoles && newAdditionalExecutiveRoles > additionalRoles) {
-        setAdditionalRoles((prev) => prev + (newAdditionalExecutiveRoles - additionalExecutiveRoles));
-    }
-    if (newAdditionalExecutiveRoles < additionalExecutiveRoles && newAdditionalExecutiveRoles > additionalRoles) {
-        setAdditionalRoles((prev) => Math.max(prev - (additionalExecutiveRoles - newAdditionalExecutiveRoles), 0));
-    }
-    setAdditionalExecutiveRoles(newAdditionalExecutiveRoles);
-};
+	};
 
 
 
@@ -210,176 +192,185 @@ const handleAdditionalExecutiveRolesChange = (e) => {
 
 	return (
 		<>
-			<div className='flex flex-col md:flex-row gap-10 layout py-12 md:py-16 border' id='pricing'>
-				{/* Pricing Section */}
-				<div className={`${showEmailForm ? 'md:w-1/2' : 'w-full'} max-w-screen-sm mx-auto p-2 md:p-6 bg-white shadow-lg rounded-lg flex flex-col`}>
+			<div className='layout py-12 md:py-16'>
+				<div className=''>
 					<div>
-						<h1 className="text-2xl font-bold mb-6 text-center">Hiring Zen Pricing Calculator</h1>
-						<div className="flex justify-around border-b mb-4 bg-black rounded-full p-1">
-							{
-								tabOptions.map((tab, index) => (
-									<TabButton
-										key={index}
-										id={tab.id}
-										label={tab?.labelBig}
-										labelSmall={tab?.labelSmall}
-									/>
-								))
-							}
+						<h2 className='text-center'>Ready to make hiring simple?</h2>
+						<p className='body-text max-w-[600px] mx-auto'>
+							<span className='font-bold'>Generate a quote now</span> and see how our flexible, subscription-based service can transform your talent acquisition process.</p>
+					</div>
+				</div>
+				<div className='flex flex-col md:flex-row gap-10 mt-10' id='pricing'>
+					{/* Pricing Section */}
+					<div className={`${showEmailForm ? 'md:w-1/2' : 'w-full'} max-w-screen-sm mx-auto p-2 md:p-6 bg-white shadow-lg rounded-lg flex flex-col`}>
+						<div>
+							<h1 className="text-2xl font-bold mb-6 text-center">Hiring Zen Pricing Calculator</h1>
+							<div className="flex justify-around border-b mb-4 bg-black rounded-full p-1">
+								{
+									tabOptions.map((tab, index) => (
+										<TabButton
+											key={index}
+											id={tab.id}
+											label={tab?.labelBig}
+											labelSmall={tab?.labelSmall}
+										/>
+									))
+								}
+							</div>
 						</div>
+
+						<AnimatePresence mode="wait">
+							<motion.div
+								key={plan}
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								exit={{ opacity: 0 }}
+								transition={{ duration: 0.3 }}
+								className="h-full flex flex-col justify-between"
+							>
+								<div className='p-4 md:p-0'>
+									<div>
+										<div className="my-1">
+											<label className="block md:hidden text-gray-700 font-semibold">{pricingPlans[plan].name}</label>
+											<label className="block text-gray-700 font-semibold text-lg">Base Price: <span className="text-gray-700 text-2xl">€{pricingPlans[plan].base}</span>/month</label>
+										</div>
+										<p>What's included:</p>
+										<ul className="list-disc list-inside text-gray-700">
+											{pricingPlans[plan].features.map((feature, index) => (
+												<li key={index}>{feature}</li>
+											))}
+										</ul>
+									</div>
+									<div className="my-4 flex flex-col md:flex-row gap-4 items-center">
+										<div className='w-full'>
+											<label className="block text-gray-700 font-semibold">Additional Roles:</label>
+											<input
+												type="number"
+												value={additionalRoles}
+												onChange={handleAdditionalRolesChange}
+												min="0"
+												max={999}
+												className="w-full mt-2 p-2 border border-gray-300 rounded"
+												placeholder="Number of additional roles"
+											/>
+										</div>
+										<div className='w-full'>
+											<label className="block text-gray-700 font-semibold">Additional Executive Roles:</label>
+											<input
+												type="number"
+												value={additionalExecutiveRoles}
+												onChange={handleAdditionalExecutiveRolesChange}
+												min="0"
+												max={999}
+												className="w-full mt-2 p-2 border border-gray-300 rounded"
+												placeholder="Number of additional executive roles"
+											/>
+										</div>
+									</div>
+								</div>
+
+								<button
+									onClick={calculateQuote}
+									className="block w-full bg-black-1 text-white py-2 px-4 rounded hover:bg-black-2 transition-all"
+								>
+									Calculate Cost
+								</button>
+							</motion.div>
+						</AnimatePresence>
 					</div>
 
-					<AnimatePresence mode="wait">
-						<motion.div
-							key={plan}
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							exit={{ opacity: 0 }}
-							transition={{ duration: 0.3 }}
-							className="h-full flex flex-col justify-between"
-						>
-							<div className='p-4 md:p-0'>
-								<div>
-									<div className="my-1">
-										<label className="block md:hidden text-gray-700 font-semibold">{pricingPlans[plan].name}</label>
-										<label className="block text-gray-700 font-semibold text-lg">Base Price: <span className="text-gray-700 text-2xl">€{pricingPlans[plan].base}</span>/month</label>
-									</div>
-									<p>What's included:</p>
-									<ul className="list-disc list-inside text-gray-700">
-										{pricingPlans[plan].features.map((feature, index) => (
-											<li key={index}>{feature}</li>
-										))}
-									</ul>
-								</div>
-								<div className="my-4 flex flex-col md:flex-row gap-4 items-center">
-									<div className='w-full'>
-										<label className="block text-gray-700 font-semibold">Additional Roles:</label>
-										<input
-											type="number"
-											value={additionalRoles}
-											onChange={handleAdditionalRolesChange}
-											min="0"
-											max={999}
-											className="w-full mt-2 p-2 border border-gray-300 rounded"
-											placeholder="Number of additional roles"
-										/>
-									</div>
-									<div className='w-full'>
-										<label className="block text-gray-700 font-semibold">Additional Executive Roles:</label>
-										<input
-											type="number"
-											value={additionalExecutiveRoles}
-											onChange={handleAdditionalExecutiveRolesChange}
-											min="0"
-											max={999}
-											className="w-full mt-2 p-2 border border-gray-300 rounded"
-											placeholder="Number of additional executive roles"
-										/>
-									</div>
-								</div>
-							</div>
-
-							<button
-								onClick={calculateQuote}
-								className="block w-full bg-black-1 text-white py-2 px-4 rounded hover:bg-black-2 transition-all"
+					<AnimatePresence>
+						{showEmailForm && (
+							<motion.div
+								initial={{ opacity: 0, x: 50 }}
+								animate={{ opacity: 1, x: 0 }}
+								exit={{ opacity: 0, x: 50 }}
+								transition={{ duration: 0.5 }}
+								className="md:w-1/2 bg-black-1 text-white px-4 py-6 md:p-6 rounded-lg shadow-lg flex flex-col"
 							>
-								Calculate Cost
-							</button>
-						</motion.div>
+								<div>
+									<h3 className="text-lg font-semibold mb-4 text-center">Send Your Quote</h3>
+									{quote && (
+										<div className="my-6">
+											<h2 className="text-xl font-semibold text-center">
+												{/* Your Total Quote: €{quote} */}
+												<span className='text-3xl xl:text-5xl'>€ {quote}</span> / month
+												<br />
+												<span className='text-xs md:text-sm'>
+													(including VAT)
+												</span>
+											</h2>
+										</div>
+									)}
+								</div>
+								<div>
+									<h2 className="text-lg">Total Summary for {pricingPlans[plan].durationInMonth} month</h2>
+									<div className="mt-1 my-3">
+										{totals.map((item) => (
+											<p key={item.label}>
+												<span className="">{item.label}:</span> € {item.value.toFixed(2)}
+											</p>
+										))}
+									</div>
+								</div>
+
+								<form onSubmit={sendQuoteEmail} className="h-full flex flex-col gap-5 justify-between ">
+									<div className='space-y-4'>
+										<input
+											type="text"
+											name="name"
+											placeholder="Your Name"
+											value={contact.name}
+											onChange={handleContactChange}
+											className="w-full p-2 border border-gray-300 rounded bg-black-2"
+											required
+										/>
+										<input
+											type="text"
+											name="companyName"
+											placeholder="Your Company Name"
+											value={contact.companyName}
+											onChange={handleContactChange}
+											className="w-full p-2 border border-gray-300 rounded bg-black-2"
+											required
+										/>
+										<input
+											type="email"
+											name="email"
+											placeholder="Your Email"
+											value={contact.email}
+											onChange={handleContactChange}
+											className="w-full p-2 border border-gray-300 rounded bg-black-2"
+											required
+										/>
+										<input
+											type="tel"
+											name="phone"
+											placeholder="Your Phone (optional)"
+											value={contact.phone}
+											onChange={handleContactChange}
+											className="w-full p-2 border border-gray-300 rounded bg-black-2"
+										/>
+										<textarea
+											name="message"
+											placeholder="Additional Message (optional)"
+											value={contact.message}
+											onChange={handleContactChange}
+											className="w-full p-2 border border-gray-300 rounded bg-black-2 h-[88px]"
+										/>
+									</div>
+									<button
+										type="submit"
+										className="w-full bg-primary/90 text-white py-2 px-4 rounded hover:bg-primary transition-all disabled:opacity-80 disabled:cursor-not-allowed"
+										disabled={quote === null || contact.name === '' || contact.email === '' || isSubmitting}
+									>
+										{isSubmitting ? 'Sending...' : 'Send Quote'}
+									</button>
+								</form>
+							</motion.div>
+						)}
 					</AnimatePresence>
 				</div>
-
-				<AnimatePresence>
-					{showEmailForm && (
-						<motion.div
-							initial={{ opacity: 0, x: 50 }}
-							animate={{ opacity: 1, x: 0 }}
-							exit={{ opacity: 0, x: 50 }}
-							transition={{ duration: 0.5 }}
-							className="md:w-1/2 bg-black-1 text-white px-4 py-6 md:p-6 rounded-lg shadow-lg flex flex-col"
-						>
-							<div>
-								<h3 className="text-lg font-semibold mb-4 text-center">Send Your Quote</h3>
-								{quote && (
-									<div className="my-6">
-										<h2 className="text-xl font-semibold text-center">
-											{/* Your Total Quote: €{quote} */}
-											<span className='text-3xl xl:text-5xl'>€ {quote}</span> / month
-											<br />
-											<span className='text-xs md:text-sm'>
-												(including VAT)
-											</span>
-										</h2>
-									</div>
-								)}
-							</div>
-							<div>
-								<h2 className="text-lg">Total Summary for {pricingPlans[plan].durationInMonth} month</h2>
-								<div className="mt-1 my-3">
-									{totals.map((item) => (
-										<p key={item.label}>
-											<span className="">{item.label}:</span> € {item.value.toFixed(2)}
-										</p>
-									))}
-								</div>
-							</div>
-
-							<form onSubmit={sendQuoteEmail} className="h-full flex flex-col gap-5 justify-between ">
-								<div className='space-y-4'>
-									<input
-										type="text"
-										name="name"
-										placeholder="Your Name"
-										value={contact.name}
-										onChange={handleContactChange}
-										className="w-full p-2 border border-gray-300 rounded bg-black-2"
-										required
-									/>
-									<input
-										type="text"
-										name="companyName"
-										placeholder="Your Company Name"
-										value={contact.companyName}
-										onChange={handleContactChange}
-										className="w-full p-2 border border-gray-300 rounded bg-black-2"
-										required
-									/>
-									<input
-										type="email"
-										name="email"
-										placeholder="Your Email"
-										value={contact.email}
-										onChange={handleContactChange}
-										className="w-full p-2 border border-gray-300 rounded bg-black-2"
-										required
-									/>
-									<input
-										type="tel"
-										name="phone"
-										placeholder="Your Phone (optional)"
-										value={contact.phone}
-										onChange={handleContactChange}
-										className="w-full p-2 border border-gray-300 rounded bg-black-2"
-									/>
-									<textarea
-										name="message"
-										placeholder="Additional Message (optional)"
-										value={contact.message}
-										onChange={handleContactChange}
-										className="w-full p-2 border border-gray-300 rounded bg-black-2 h-[88px]"
-									/>
-								</div>
-								<button
-									type="submit"
-									className="w-full bg-primary/90 text-white py-2 px-4 rounded hover:bg-primary transition-all disabled:opacity-80 disabled:cursor-not-allowed"
-									disabled={quote === null || contact.name === '' || contact.email === '' || isSubmitting}
-								>
-									{isSubmitting ? 'Sending...' : 'Send Quote'}
-								</button>
-							</form>
-						</motion.div>
-					)}
-				</AnimatePresence>
 			</div>
 		</>
 	);
