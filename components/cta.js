@@ -9,9 +9,9 @@ const CTA = () => {
     <>
       <div className='py-12 md:py-16 xl:py-24'>
         <motion.div className='layout flex flex-col md:flex-row justify-between gap-y-8'
-          initial={{ y: 100, opacity: 0 }}
+          initial={{ y: 50, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: .4 }}
+          transition={{ duration: .5 }}
         >
           <div className='md:max-w-[60%]'>
             <h2 className='text-2xl md:text-3xl xl:text-4xl font-semibold leading-snug'>Take Control of Your Hiring – Today</h2>

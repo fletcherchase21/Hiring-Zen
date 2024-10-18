@@ -2,6 +2,7 @@
 import React from 'react'
 import Button from './core/button'
 import CompanyScroller from './company-scroller'
+import { motion } from 'framer-motion'
 
 const Hero = () => {
   const hero = {
@@ -12,20 +13,28 @@ const Hero = () => {
     <div className='relative'>
       <div className='layout pt-20 md:pt-24 xl:pt-28 pb-10 md:pb-12 xl:pb-16'>
         <div className='flex flex-col items-center'>
-          <h1 className='text-4xl md:text-5xl xl:text-[104px] text-center font-semibold max-w-[800px] mx-auto'>A Hiring agency with a twist</h1>
-          {/* <h4 className='text-base md:text-lg xl:text-2xl text-center font-thin mt-4'>We Recruit for SMEs. Pause or cancel anytime.</h4> */}
-          <h4 className='text-base md:text-lg xl:text-2xl text-center font-thin mt-4'>A modern way to hire for the businesses of tomorrow</h4>
-          <>
-            <Button
-              buttonText='See Plans'
-              buttonLink='#pricing'
-              className="mt-5"
-            />
-          </>
-          <div className='mt-10 w-full'>
+          <motion.div className='flex flex-col items-center'
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: .5 }}
+          >
+            <h1 className='text-4xl md:text-5xl xl:text-[104px] text-center font-semibold max-w-[800px] mx-auto'>A Hiring agency with a twist</h1>
+            <h4 className='text-base md:text-lg xl:text-2xl text-center font-thin mt-4'>A modern way to hire for the businesses of tomorrow</h4>
+            <>
+              <Button
+                buttonText='See Plans'
+                buttonLink='#pricing'
+                className="mt-5"
+              />
+            </>
+          </motion.div>
+          <motion.div className='mt-10 w-full'
+            initial={{ y: 50, opacity: 0, scaleX: 0.5 }}
+            whileInView={{ y: 0, opacity: 1, scaleX: 1 }}
+            transition={{ duration: .5 }}
+          >
             <CompanyScroller />
-          </div>
-
+          </motion.div>
         </div>
       </div>
 

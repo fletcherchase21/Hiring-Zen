@@ -21,6 +21,10 @@ h2 {
   @apply text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold;
 }
 
+.main {
+  background: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.02)), url('/images/main-bg.png');
+}
+
 p{
   @apply text-base md:text-lg;
 }

@@ -23,14 +23,22 @@ const FAQ = () => {
   return (
     <div className='py-16 md:py-20 xl:py-28 '>
       <div className='px-4 max-w-[684px] mx-auto'>
-        <div className='mb-12 md:mb-16'>
+        <motion.div className='mb-12 md:mb-16'
+          initial={{ y: 50, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: .5 }}
+        >
           <h2 className='section-title text-center text-sec-1'>{faqData?.title}</h2>
           <p className='text-center max-w-[400px] mx-auto mt-4'>{faqData?.description}</p>
-        </div>
+        </motion.div>
         <div className='flex flex-col gap-5'>
           {
             faqData?.faqs.map((faq, index) => (
-              <div key={index} className='bg-white p-5 rounded-lg'>
+              <motion.div key={index} className='bg-white p-5 rounded-lg'
+                initial={{ y: 50, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ duration: .5 }}
+              >
                 <div className='flex gap-5 justify-between items-center cursor-pointer'
                   onClick={() => handleToggle(index)}
                 >
@@ -64,7 +72,7 @@ const FAQ = () => {
                     }
                   </div>
                 </motion.div>
-              </div>
+              </motion.div>
             ))
           }
         </div>

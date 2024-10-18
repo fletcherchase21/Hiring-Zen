@@ -1,5 +1,7 @@
+'use client'
 import Image from 'next/image'
 import React from 'react'
+import { motion } from 'framer-motion'
 
 const WhyChooseUs = () => {
 
@@ -37,15 +39,23 @@ const WhyChooseUs = () => {
   return (
     <div className='relative'>
       <div className='py-20 md:py-24 xl:py-28'>
-        <div className='layout'>
+        <motion.div className='layout'
+          initial={{ y: 50, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: .5 }}
+        >
           <h2 className=' text-center max-w-[800px] mx-auto'>Why Choose Us</h2>
           <p className='body-text text-center w-[80%] max-w-[550px] mx-auto'>
-          Hiring Zen offers a fresh approach to recruitment
+            Hiring Zen offers a fresh approach to recruitment
           </p>
           <div className='mt-20 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-x-10 gap-y-16'>
             {
               steps.map((step, index) => (
-                <div key={index} className='flex flex-col items-center'>
+                <motion.div key={index} className='flex flex-col items-center'
+                  initial={{ y: 50, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  transition={{ duration: .5 }}
+                >
                   <div className={`bg-contain bg-center bg-no-repeat p-5 rounded-full ${step.bg}`}
                   // style={{ backgroundColor: `url(${step.bg})` }}
                   >
@@ -61,11 +71,11 @@ const WhyChooseUs = () => {
                   </div>
                   <h3 className='text-xl md:text-2xl xl:text-3xl font-semibold mt-4'>{step.title}</h3>
                   <p className='text-base md:text-lg text-center mt-4'>{step.description}</p>
-                </div>
+                </motion.div>
               ))
             }
           </div>
-        </div>
+        </motion.div>
       </div>
       <img
         src={how.left}

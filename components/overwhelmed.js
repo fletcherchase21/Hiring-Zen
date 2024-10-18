@@ -1,11 +1,21 @@
+'use client'
 import Image from 'next/image'
 import React from 'react'
+import { motion } from 'framer-motion'
 
 const Overwhelmed = () => {
   return (
     <div className='layout py-10 xl:py-16'>
-      <h2 className='text-center max-w-[900px] mx-auto leading-snug'>Overwhelmed by Hiring Challenges? Let Our Experts Take Over</h2>
-      <div className='flex flex-col lg:flex-row-reverse items-center mt-16 gap-10'>
+      <motion.h2 className='text-center max-w-[900px] mx-auto leading-snug'
+        initial={{ y: 50, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{ duration: .5 }}
+      >Overwhelmed by Hiring Challenges? Let Our Experts Take Over</motion.h2>
+      <motion.div className='flex flex-col lg:flex-row-reverse items-center mt-16 gap-10'
+        initial={{ y: 50, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{ duration: .5 }}
+      >
         <div className='w-full lg:w-[50%]'>
           <div className='bg-white rounded-lg lg:rounded-xl'>
             <Image
@@ -31,7 +41,7 @@ const Overwhelmed = () => {
             </p>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   )
 }

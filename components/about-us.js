@@ -1,6 +1,8 @@
+'use client'
 import Image from 'next/image';
 import { BsFileText, BsChatSquareDots } from 'react-icons/bs';
 import { FaUserCheck, FaRegHandshake } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
 const steps = [
   { icon: <BsFileText />, text: 'Writing the perfect job description' },
@@ -12,7 +14,11 @@ const steps = [
 const AboutUs = () => {
   return (
     <section className="layout-wide py-10 md:py-12 xl:py-16 ">
-      <div className='flex flex-col lg:flex-row gap-5 items-center'>
+      <motion.div className='flex flex-col lg:flex-row gap-5 items-center'
+        initial={{ y: 100, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{ duration: .5 }}
+      >
         <div className="w-full lg:w-[45%] flex justify-center mb-6 md:mb-0 bg-white rounded-lg lg:rounded-xl">
           <Image
             src="/images/Brainstorming-rafiki.svg"
@@ -55,7 +61,7 @@ const AboutUs = () => {
 
           </p>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };
