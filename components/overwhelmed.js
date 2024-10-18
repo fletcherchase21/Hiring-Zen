@@ -9,7 +9,7 @@ const Overwhelmed = () => {
         <div className='w-full lg:w-[50%]'>
           <div className='bg-white rounded-lg lg:rounded-xl'>
             <Image
-              src="/images/over.svg"
+              src="/images/Business mission-pana.svg"
               alt=""
               width={900}
               height={500}

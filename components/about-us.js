@@ -15,7 +15,7 @@ const AboutUs = () => {
       <div className='flex flex-col lg:flex-row gap-5 items-center'>
         <div className="w-full lg:w-[45%] flex justify-center mb-6 md:mb-0 bg-white rounded-lg lg:rounded-xl">
           <Image
-            src="/images/about.svg"
+            src="/images/Brainstorming-rafiki.svg"
             alt="Hiring Zen office"
             width={500}
             height={500}

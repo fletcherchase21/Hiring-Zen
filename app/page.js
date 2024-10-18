@@ -11,7 +11,7 @@ export default function Home() {
           <Link href="/" className="py-2 flex items-center">
             {/* <span className="text-xl md:text-2xl xl:text-4xl text-center block my-2 md:my-5 font-bold">Hiring Zen</span> */}
             <Image 
-              src="/images/logo.svg" 
+              src="/images/logo/text-logo.svg" 
               alt="Hiring Zen" 
               width={100} 
               height={100} 
