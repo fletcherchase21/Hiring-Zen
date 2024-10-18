@@ -34,14 +34,13 @@ const FAQ = () => {
         <div className='flex flex-col gap-5'>
           {
             faqData?.faqs.map((faq, index) => (
-              <motion.div key={index} className='bg-white p-5 rounded-lg'
+              <motion.div key={index} className='bg-white p-5 rounded-lg cursor-pointer'
                 initial={{ y: 50, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ duration: .5 }}
+                onClick={() => handleToggle(index)}
               >
-                <div className='flex gap-5 justify-between items-center cursor-pointer'
-                  onClick={() => handleToggle(index)}
-                >
+                <div className='flex gap-5 justify-between items-center'>
                   <h3 className='text-black font-semibold'>{faq?.question}</h3>
                   <button >
                     {expandedIndex === index ?
