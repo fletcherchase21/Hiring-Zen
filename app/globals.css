@@ -4,7 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
-main {
+body {
   font-family: 'Brockmann', sans-serif;
 }
 
@@ -20,6 +20,9 @@ main {
   @apply w-[92%] max-w-[1200px] mx-auto;
 }
 
+.layout-narrow {
+  @apply w-[92%] max-w-[1000px] mx-auto;
+}
 
 
 h2 {

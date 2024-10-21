@@ -49,7 +49,7 @@ const Footer = () => {
               Privacy Policy
             </Link>
             <Link href="/terms-of-service" className="hover:underline">
-              Terms and Conditions
+              Terms and Service
             </Link>
           </div>
 

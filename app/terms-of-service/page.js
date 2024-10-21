@@ -1,146 +1,73 @@
+import Link from 'next/link';
 import React from 'react';
+
+const termsOfService = [
+  {
+    title: "",
+    description: `<p>These terms and conditions (the "Terms and Conditions") govern the use of www.hiringzen.com (the "Site"). This Site is owned and operated by Fletcher Chase Ltd, a staffing and recruitment consultancy.</p>
+                  <p>By using this Site, you indicate that you have read and understand these Terms and Conditions and agree to abide by them at all times.</p>`
+  },
+  {
+    title: "Intellectual Property",
+    description: `<p>All content published and made available on our Site is the property of Fletcher Chase Ltd and the Site's creators. This includes, but is not limited to, images, text, logos, documents, downloadable files, and anything that contributes to the composition of our Site.</p>`
+  },
+  {
+    title: "Age Restrictions",
+    description: `<p>The minimum age to use our Site is 18 years old. By using this Site, users agree that they are over 18 years old. We do not assume any legal responsibility for false statements about age.</p>`
+  },
+  {
+    title: "Acceptable Use",
+    description: `<p>As a user of our Site, you agree to use our Site legally, not to use our Site for illegal purposes, and not to:</p>
+                  <ul class="list-disc ml-6">
+                    <li>Violate the intellectual property rights of the Site owners or any third party to the Site.</li>
+                  </ul>
+                  <p>If we believe you are using our Site illegally or in a manner that violates these Terms and Conditions, we reserve the right to limit, suspend or terminate your access to our Site. We also reserve the right to take any legal steps necessary to prevent you from accessing our Site.</p>`
+  },
+  {
+    title: "Links to Other Websites",
+    description: `<p>Our Site contains links to third party websites or services that we do not own or control. We are not responsible for the content, policies, or practices of any third party website or service linked to on our Site. It is your responsibility to read the terms and conditions and privacy policies of these third party websites before using these sites.</p>`
+  },
+  {
+    title: "Limitation of Liability",
+    description: `<p>Fletcher Chase Ltd and our directors, officers, agents, employees, subsidiaries, and affiliates will not be liable for any actions, claims, losses, damages, liabilities, and expenses, including legal fees, from your use of the Site.</p>`
+  },
+  {
+    title: "Indemnity",
+    description: `<p>Except where prohibited by law, by using this Site you indemnify and hold harmless Fletcher Chase Ltd and our directors, officers, agents, employees, subsidiaries, and affiliates from any actions, claims, losses, damages, liabilities, and expenses, including legal fees, arising out of your use of our Site or your violation of these Terms and Conditions.</p>`
+  },
+  {
+    title: "Applicable Law",
+    description: `<p>These Terms and Conditions are governed by the laws of Ireland.</p>`
+  },
+  {
+    title: "Severability",
+    description: `<p>If at any time any of the provisions set forth in these Terms and Conditions are found to be inconsistent or invalid under applicable laws, those provisions will be deemed void and will be removed from these Terms and Conditions. All other provisions will not be affected by the removal and the rest of these Terms and Conditions will still be considered valid.</p>`
+  },
+  {
+    title: "Changes",
+    description: `<p>These Terms and Conditions may be amended from time to time in order to maintain compliance with the law and to reflect any changes to the way we operate our Site and the way we expect users to behave on our Site. We will notify users by email of changes to these Terms and Conditions or post a notice on our Site.</p>`
+  },
+  {
+    title: "Contact Details",
+    description: `<p>Please contact us if you have any questions or concerns. Our contact details are as follows:</p>`
+  }
+];
+
 
 const PrivacyPolicy = () => {
   return (
-    <div className="min-h-screen p-8">
-      <div className="max-w-7xl mx-auto rounded-lg p-6">
-        <h1 className="text-3xl font-bold text-center mb-6">Privacy Policy</h1>
-        
-        <p className="text-right text-gray-500 italic">Effective date: 1st day of October, 2024</p>
-        
-        <section className="mt-4">
-          <h2 className="text-xl font-semibold mb-2">www.hiringzen.com Privacy Policy</h2>
-          <p className="mb-4">Effective date: 1st day of October, 2024</p>
+    <div className="layout p-8">
+      <h1 className="text-3xl font-bold mb-6">Terms of Service</h1>
 
-          <p className="mb-4">
-            www.hiringzen.com (the "Site") is owned and operated by Fletcher Chase Ltd. Fletcher Chase Ltd is the data controller and can be contacted at: 
-            <a href="mailto:hello@hiringzen.com" className="text-blue-500"> hello@hiringzen.com</a>
-          </p>
-        </section>
-
-        <section className="mt-6">
-          <h2 className="text-lg font-semibold mb-3">Purpose</h2>
-          <p className="mb-4">
-            The purpose of this privacy policy (this "Privacy Policy") is to inform users of our Site of the following:
-          </p>
-          <ul className="list-disc list-inside space-y-2">
-            <li>The personal data we will collect;</li>
-            <li>Use of collected data;</li>
-            <li>Who has access to the data collected;</li>
-            <li>The rights of Site users;</li>
-            <li>The Site's cookie policy.</li>
-          </ul>
-          <p className="mt-4">This Privacy Policy applies in addition to the terms and conditions of our Site.</p>
-        </section>
-
-        <section className="mt-6">
-          <h2 className="text-lg font-semibold mb-3">GDPR</h2>
-          <p className="mb-4">
-            For users in the European Union, we adhere to the Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016, known as the General Data Protection Regulation (the "GDPR"). 
-            For users in the United Kingdom, we adhere to the GDPR as enshrined in the Data Protection Act 2018.
-          </p>
-        </section>
-
-        <section className="mt-6">
-          <h2 className="text-lg font-semibold mb-3">Consent</h2>
-          <p className="mb-4">
-            By using our Site, users agree that they consent to:
-          </p>
-          <ul className="list-disc list-inside space-y-2">
-            <li>The conditions set out in this Privacy Policy.</li>
-          </ul>
-          <p className="mt-4">
-            You can withdraw your consent by contacting the company administrator.
-          </p>
-        </section>
-
-        <section className="mt-6">
-          <h2 className="text-lg font-semibold mb-3">Legal Basis for Processing</h2>
-          <p className="mb-4">
-            We collect and process personal data about users in the EU only when we have a legal basis for doing so under Article 6 of the GDPR.
-          </p>
-          <ul className="list-disc list-inside space-y-2">
-            <li>Users have provided their consent to the processing of their data for one or more specific purposes; and</li>
-            <li>Processing of user personal data is necessary for us or a third party to pursue a legitimate interest, such as reviewing submitted resumes.</li>
-          </ul>
-        </section>
-
-        <section className="mt-6">
-          <h2 className="text-lg font-semibold mb-3">Personal Data We Collect</h2>
-          <p className="mb-4">
-            We only collect data that helps us achieve the purpose set out in this Privacy Policy. We may collect the following data:
-          </p>
-          <ul className="list-disc list-inside space-y-2">
-            <li>First and last name;</li>
-            <li>Email address;</li>
-            <li>Phone number;</li>
-            <li>Address.</li>
-          </ul>
-        </section>
-
-        <section className="mt-6">
-          <h2 className="text-lg font-semibold mb-3">How We Use Personal Data</h2>
-          <p className="mb-4">
-            The data we collect may be used for approved communication.
-          </p>
-        </section>
-
-        <section className="mt-6">
-          <h2 className="text-lg font-semibold mb-3">Who We Share Personal Data With</h2>
-          <p className="mb-4">
-            We may disclose user data to any member of our organization who reasonably needs access to user data. We will not sell or share your data with third parties, except in the following cases:
-          </p>
-          <ul className="list-disc list-inside space-y-2">
-            <li>If the law requires it;</li>
-            <li>For legal proceedings;</li>
-            <li>To protect our legal rights;</li>
-            <li>To buyers in the event of a company sale.</li>
-          </ul>
-        </section>
-
-        <section className="mt-6">
-          <h2 className="text-lg font-semibold mb-3">Your Rights</h2>
-          <p className="mb-4">As a user, you have the following rights under the GDPR:</p>
-          <ul className="list-disc list-inside space-y-2">
-            <li>Right to be informed;</li>
-            <li>Right of access;</li>
-            <li>Right to rectification;</li>
-            <li>Right to erasure;</li>
-            <li>Right to restrict processing;</li>
-            <li>Right to data portability;</li>
-            <li>Right to object.</li>
-          </ul>
-        </section>
-
-        <section className="mt-6">
-          <h2 className="text-lg font-semibold mb-3">Children</h2>
-          <p className="mb-4">
-            We do not knowingly collect data from children under 16. If you believe we have done so, please contact us to delete the data.
-          </p>
-        </section>
-
-        <section className="mt-6">
-          <h2 className="text-lg font-semibold mb-3">Cookie Policy</h2>
-          <p className="mb-4">
-            We use functional and analytical cookies to enhance your experience. You can disable cookies in your browser settings.
-          </p>
-        </section>
-
-        <section className="mt-6">
-          <h2 className="text-lg font-semibold mb-3">Modifications</h2>
-          <p className="mb-4">
-            This Privacy Policy may be updated from time to time. We recommend checking periodically for updates.
-          </p>
-        </section>
-
-        <section className="mt-6">
-          <h2 className="text-lg font-semibold mb-3">Contact Information</h2>
-          <p className="mb-4">
-            If you have any questions, please contact our privacy officer: 
-            <a href="mailto:richard@hiringzen.com" className="text-blue-500"> richard@hiringzen.com</a>
-          </p>
-        </section>
-      </div>
+      <p className="text-sm text-gray-600 mb-3">Effective date: 1st day of October, 2024</p>
+      {termsOfService.map((term, index) => (
+        <div key={index} className="mb-6 last-of-type:mb-0">
+          <h2 className="text-xl font-semibold">{term.title}</h2>
+          <div dangerouslySetInnerHTML={{ __html: term.description }} />
+        </div>
+      ))}
+      <Link href={"mailto:hello@hiringzen.com"} className='md:text-lg text-primary hover:underline'>hello@hiringzen.com</Link>
+      <p className="text-sm text-gray-600 mt-3">Effective date: 1st day of October, 2024</p>
     </div>
   );
 };

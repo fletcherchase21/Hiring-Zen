@@ -15,15 +15,16 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" style={{ scrollBehavior: "smooth" }}>
-      <body className={` ${inter.className}`}>
+      {/* <body className={` ${inter.className}`}> */}
+      <body className={``}>
         <ToastContainer position="top-right" />
         <Header />
-        <main className="layout-wide rounded-3xl relative main overflow-hidden">
+        {/* <main className="layout-wide rounded-3xl relative main overflow-hidden">
           <TinyDots />
-          <div className="relative z-10">
+          <div className="relative z-10"> */}
             {children}
-          </div>
-        </main>
+          {/* </div> */}
+        {/* </main> */}
         <Footer />
       </body>
     </html>

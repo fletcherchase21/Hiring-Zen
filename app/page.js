@@ -6,9 +6,9 @@ import Link from "next/link";
 export default function Home() {
   return (
     <>
-      {/* <div className="layout-wide rounded-3xl relative main overflow-hidden">
+      <div className="layout-wide rounded-3xl relative main overflow-hidden">
         <TinyDots />
-        <div className="relative z-10"> */}
+        <div className="relative z-10">
           <Hero />
           <AboutUs />
           <WhyChooseUs />
@@ -17,8 +17,8 @@ export default function Home() {
           <CTA />
           <PricingCalculator />
           <FAQ />
-        {/* </div> */}
-      {/* </div> */}
+        </div>
+      </div>
     </>
   );
 }
