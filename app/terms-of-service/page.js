@@ -56,7 +56,7 @@ const termsOfService = [
 
 const PrivacyPolicy = () => {
   return (
-    <div className="layout p-8">
+    <div className="layout py-10">
       <h1 className="text-3xl font-bold mb-6">Terms of Service</h1>
 
       <p className="text-sm text-gray-600 mb-3">Effective date: 1st day of October, 2024</p>

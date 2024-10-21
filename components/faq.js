@@ -31,7 +31,7 @@ const FAQ = () => {
           <h2 className='section-title text-center text-sec-1'>{faqData?.title}</h2>
           <p className='text-center max-w-[400px] mx-auto mt-4'>{faqData?.description}</p>
         </motion.div>
-        <div className='flex flex-col gap-5'>
+        <div className='flex flex-col gap-3 sm:gap-4 xl:gap-5'>
           {
             faqData?.faqs.map((faq, index) => (
               <motion.div key={index} className='bg-white p-5 rounded-lg cursor-pointer'

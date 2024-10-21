@@ -170,8 +170,8 @@ richard@hiringzen.com`
 
 const PrivacyPolicy = () => {
   return (
-    <div className="layout py-10 px-6 sm:px-10 lg:px-24">
-      <div className="privacy-policy">
+    <div className="layout py-10">
+      <div className="">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">Privacy Policy</h1>
         <p className="text-sm text-gray-600">Effective date: 1st day of October, 2024</p>
         {privacyPolicy.map((section, index) => (
