@@ -13,9 +13,9 @@ const PricingCalculator = () => {
 
 	const initialTotals = [
 		{ label: 'Base Price', value: 0 },
-		{ label: 'Base Price with VAT', value: 0 },
-		{ label: 'Additional Roles Total', value: 0 },
-		{ label: 'Additional Executive Roles Total', value: 0 },
+		{ label: 'With +23% VAT', value: 0 },
+		{ label: 'For each additional role (with +23% VAT)', value: 0 },
+		{ label: 'For Executive Search Add-on (with +23% VAT)', value: 0 },
 	];
 
 	const [totals, setTotals] = useState(initialTotals);
@@ -80,10 +80,9 @@ const PricingCalculator = () => {
 		setTotals([
 			{ ...totals[0], value: basePrice * month },
 			{ ...totals[1], value: basePrice * month * 1.23 },
-			{ ...totals[2], value: (basePrice + pricingPlans[plan].additional) * month * 1.23 },
-			{ ...totals[3], value: finalTotal * month },
+			{ ...totals[2], value: pricingPlans[plan].additional * additionalRoles * 1.23 },
+			{ ...totals[3], value: pricingPlans[plan].additionalExecutive * additionalExecutiveRoles * 1.23 }
 		]);
-
 		setQuote(finalTotal.toFixed(2));
 		setShowEmailForm(true);
 	};
@@ -105,7 +104,7 @@ const PricingCalculator = () => {
 
 	const TabButton = ({ id, label, labelSmall }) => (
 		<button
-			className={` py-2 px-4 w-full text-center transition-all ${plan === id ? 'bg-primary text-black rounded-full' : 'border-transparent text-gray-50'}`}
+			className={` py-2 px-4 w-full text-center transition-all ${plan === id ? 'bg-primary text-gray-50 rounded-full' : 'border-transparent text-gray-200'}`}
 			onClick={() => {
 				setPlan(id)
 			}}
@@ -177,15 +176,14 @@ const PricingCalculator = () => {
 	const handleAdditionalExecutiveRolesChange = (e) => {
 		const value = e.target.value;
 		const newAdditionalExecutiveRoles = value === '' ? '' : Number(value);
-		if (newAdditionalExecutiveRoles > additionalExecutiveRoles && newAdditionalExecutiveRoles > additionalRoles) {
-			setAdditionalRoles((prev) => prev + (newAdditionalExecutiveRoles - additionalExecutiveRoles));
+		const delta = newAdditionalExecutiveRoles - additionalRoles;
+
+		if (newAdditionalExecutiveRoles > additionalRoles) {
+			setAdditionalRoles((prev) => Math.max(prev + delta, 0));
 		}
-		if (newAdditionalExecutiveRoles < additionalExecutiveRoles && newAdditionalExecutiveRoles > additionalRoles) {
-			setAdditionalRoles((prev) => Math.max(prev - (additionalExecutiveRoles - newAdditionalExecutiveRoles), 0));
-		}
+
 		setAdditionalExecutiveRoles(newAdditionalExecutiveRoles);
 	};
-
 
 
 
@@ -250,7 +248,7 @@ const PricingCalculator = () => {
 												))}
 											</ul>
 										</div>
-										<div className="my-4 flex flex-col md:flex-row gap-4 items-center">
+										<div className="mt-4 mb-1 flex flex-col md:flex-row gap-4 items-center">
 											<div className='w-full'>
 												<label className="block text-gray-700 font-semibold">Additional Roles:</label>
 												<input
@@ -276,11 +274,12 @@ const PricingCalculator = () => {
 												/>
 											</div>
 										</div>
+										<p className='italic text-sm mb-2'>Note: Each executive role requires bundling with at least one standard role (italics)</p>
 									</div>
 
 									<button
 										onClick={calculateQuote}
-										className="block w-full bg-black-1 text-white py-2 px-4 rounded hover:bg-black-2 transition-all"
+										className="block w-full bg-black-1 text-gray-200 py-2 px-4 rounded hover:bg-black-2 transition-all"
 									>
 										Calculate Cost
 									</button>
@@ -295,7 +294,7 @@ const PricingCalculator = () => {
 									animate={{ opacity: 1, x: 0 }}
 									exit={{ opacity: 0, x: 50 }}
 									transition={{ duration: 0.5 }}
-									className="md:w-1/2 bg-black-1 text-white px-4 py-6 md:p-6 rounded-lg shadow-lg flex flex-col"
+									className="md:w-1/2 bg-black-1 text-gray-200 px-4 py-6 md:p-6 rounded-lg shadow-lg flex flex-col"
 								>
 									<div>
 										<h3 className="text-lg font-semibold mb-4 text-center">Send Your Quote</h3>
@@ -316,8 +315,8 @@ const PricingCalculator = () => {
 										<h2 className="text-lg">Total Summary for {pricingPlans[plan].durationInMonth} month</h2>
 										<div className="mt-1 my-3">
 											{totals.map((item) => (
-												<p key={item.label}>
-													<span className="">{item.label}:</span> € {item.value.toFixed(2)}
+												<p key={item.label} className='text-gray-200'>
+													<span className="text-base">{item.label}:</span> € {item.value.toFixed(2)}
 												</p>
 											))}
 										</div>
