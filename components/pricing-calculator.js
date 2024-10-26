@@ -14,8 +14,8 @@ const PricingCalculator = () => {
 	const initialTotals = [
 		{ label: 'Base Price', value: 0 },
 		{ label: 'With +23% VAT', value: 0 },
-		{ label: 'For each additional role (with +23% VAT)', value: 0 },
-		{ label: 'For Executive Search Add-on (with +23% VAT)', value: 0 },
+		{ label: 'For each additional role per month (with +23% VAT)', value: 0 },
+		{ label: 'For Executive Search Add-on per month (with +23% VAT)', value: 0 },
 	];
 
 	const [totals, setTotals] = useState(initialTotals);
@@ -142,7 +142,7 @@ const PricingCalculator = () => {
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({ contact, plan, additionalRoles, additionalExecutiveRoles, quote }),
+				body: JSON.stringify({ contact, plan, totals, additionalRoles, additionalExecutiveRoles, quote }),
 			});
 
 			const result = await response.json();
@@ -190,20 +190,20 @@ const PricingCalculator = () => {
 
 	return (
 		<>
-			<div className='layout py-12 md:py-16'>
+			<div className='layout py-12 md:py-16 font-roboto'>
 				<div>
 					<motion.div className=''
 						initial={{ y: 50, opacity: 0 }}
 						whileInView={{ y: 0, opacity: 1 }}
 						transition={{ duration: .5 }}
 					>
-						<div>
+						<div className='font-brockmann'>
 							<h2 className='text-center'>Ready to make hiring simple?</h2>
 							<p className='body-text max-w-[600px] mx-auto'>
 								<span className='font-bold'>Generate a quote now</span> and see how our flexible, subscription-based service can transform your talent acquisition process.</p>
 						</div>
 					</motion.div>
-					<motion.div className='flex flex-col md:flex-row gap-10 mt-10' id='pricing'
+					<motion.div className='flex flex-col md:flex-row gap-y-10 gap-x-6 pt-8 lg:pt-12' id='pricing'
 						initial={{ y: 50, opacity: 0 }}
 						whileInView={{ y: 0, opacity: 1 }}
 						transition={{ duration: .5 }}
@@ -250,7 +250,9 @@ const PricingCalculator = () => {
 										</div>
 										<div className="mt-4 mb-1 flex flex-col md:flex-row gap-4 items-center">
 											<div className='w-full'>
-												<label className="block text-gray-700 font-semibold">Additional Roles:</label>
+												<label className="block text-gray-700 font-medium">Additional Roles:
+												<br /> <span className='text-xl font-semibold'> €{pricingPlans[plan].additional} </span>(ex VAT) / month 
+												</label>
 												<input
 													type="number"
 													value={additionalRoles}
@@ -262,7 +264,9 @@ const PricingCalculator = () => {
 												/>
 											</div>
 											<div className='w-full'>
-												<label className="block text-gray-700 font-semibold">Additional Executive Roles:</label>
+												<label className="block text-gray-700 font-medium">Additional Executive Roles:
+												<br /> <span className='text-xl font-semibold'> €{pricingPlans[plan].additionalExecutive} </span>(ex VAT) / month
+												</label>
 												<input
 													type="number"
 													value={additionalExecutiveRoles}
@@ -270,12 +274,12 @@ const PricingCalculator = () => {
 													min="0"
 													max={999}
 													className="w-full mt-2 p-2 border border-gray-300 rounded"
-													placeholder="Number of additional executive roles"
+													placeholder="Number of additional executive roles"                                                               
 												/>
 											</div>
-										</div>
-										<p className='italic text-sm mb-2'>Note: Each executive role requires bundling with at least one standard role (italics)</p>
-									</div>
+										</div>           
+										<p className='italic text-sm mb-2'>Note: Each executive role requires bundling wi                   th at least one standard role                                                                                         </p>
+									</div>                 
 
 									<button
 										onClick={calculateQuote}
@@ -315,8 +319,8 @@ const PricingCalculator = () => {
 										<h2 className="text-lg">Total Summary for {pricingPlans[plan].durationInMonth} month</h2>
 										<div className="mt-1 my-3">
 											{totals.map((item) => (
-												<p key={item.label} className='text-gray-200'>
-													<span className="text-base">{item.label}:</span> € {item.value.toFixed(2)}
+												<p key={item.label} className=''>
+													<span className="text-base text-gray-300 font-normal">{item.label}:</span> <span className='text-gray-100 font-medium'>€ {item.value.toFixed(2)}</span> 
 												</p>
 											))}
 										</div>

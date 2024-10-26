@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 export async function POST(request) {
   try {
     // Directly access the data fields sent from the frontend
-    const { contact, plan, additionalRoles, additionalExecutiveRoles,  quote } = await request.json();
+    const { contact, plan, totals, additionalRoles, additionalExecutiveRoles,  quote } = await request.json();
 
     const transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -82,6 +82,15 @@ export async function POST(request) {
             </tr>
           </tbody>
         </table>
+        <h2 style="text-align: center; margin-top: 10px;">Quote Breakdown</h2>
+        <div style="width: 100%; max-width: 600px; margin: 10px auto;">
+          ${totals.map(item => `
+            <p style="font-size: 14px; color: #4a4a4a;">
+              <span style="font-weight: normal;">${item.label}:</span> 
+              <span style="font-weight: 500; color: #000;">€ ${item.value.toFixed(2)}</span>
+            </p>
+          `).join('')}
+        </div>
       `,
     };
 
