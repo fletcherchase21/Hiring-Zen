@@ -6,8 +6,10 @@ import { motion } from 'framer-motion'
 
 const Hero = () => {
   const hero = {
-    left: "https://cdn.prod.website-files.com/5837424ae11409586f837994/65da646706ce29b68e68850c_Group%2075.svg",
-    right: "https://cdn.prod.website-files.com/5837424ae11409586f837994/65da64662ed568152b486d2d_25.svg"
+    // left: "https://cdn.prod.website-files.com/5837424ae11409586f837994/65da646706ce29b68e68850c_Group%2075.svg",
+    // right: "https://cdn.prod.website-files.com/5837424ae11409586f837994/65da64662ed568152b486d2d_25.svg"
+    left: "/images/abstract/2.png",
+    right: "/images/abstract/1.png"
   }
   return (
     <div className='relative'>

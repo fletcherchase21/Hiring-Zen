@@ -6,8 +6,8 @@ import { motion } from 'framer-motion'
 const WhyChooseUs = () => {
 
   const how = {
-    right: "https://cdn.prod.website-files.com/5837424ae11409586f837994/65dd2283937c19061858f77d_Group%2076.svg",
-    left: "https://cdn.prod.website-files.com/5837424ae11409586f837994/65dd230f503738ef5ddfd8ee_Group%2077.svg"
+    // right: "https://cdn.prod.website-files.com/5837424ae11409586f837994/65dd2283937c19061858f77d_Group%2076.svg",
+    // left: "https://cdn.prod.website-files.com/5837424ae11409586f837994/65dd230f503738ef5ddfd8ee_Group%2077.svg"
   }
 
   const steps = [
