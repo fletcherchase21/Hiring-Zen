@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { Footer, Header } from "@/components";
 import TinyDots from "@/components/core/tiny-dots";
+import { GoogleTagManager } from '@next/third-parties/google'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,6 +17,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" style={{ scrollBehavior: "smooth" }}>
       {/* <body className={` ${inter.className}`}> */}
+      <GoogleTagManager gtmId="GTM-FQVYPSME5L" />
       <body className={``}>
         <ToastContainer position="top-right" />
         <Header />
