@@ -20,7 +20,7 @@ const Hero = () => {
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: .5 }}
           >
-            <h1 className='text-4xl md:text-5xl xl:text-[104px] text-center font-semibold max-w-[800px] mx-auto'>A Hiring agency with a twist</h1>
+            <h1 className='text-4xl md:text-5xl xl:text-[104px] text-center font-semibold max-w-[800px] mx-auto'>A hiring agency with a twist</h1>
             <h4 className='text-base md:text-lg xl:text-2xl text-center font-thin mt-4'>A modern way to hire for the businesses of tomorrow</h4>
             <>
               <Button
