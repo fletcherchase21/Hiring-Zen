@@ -9,17 +9,15 @@ export async function POST(request) {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        // user: process.env.EMAIL_USER,
+        // pass: process.env.EMAIL_PASS,
+        user: "rsnowden21@gmail.com",
+        pass: "aadfvqhsfkfflkbx",
       }
     });
 
     const mailOption = {
-      // from: process.env.EMAIL_USER,
-      // to: "amdad.zatiq@gmail.com",  
       from: contact.email,
-      // to: process.env.EMAIL_TO,
-      // to: "amdad.zatiq@gmail.com",
       to: "rsnowden@fletcherchase.com",
       subject: `Quote for ${plan} from ${contact.name}`,
       html: `
