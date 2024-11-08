@@ -35,7 +35,7 @@ const Overwhelmed = () => {
               here to change that.</p>
             <br />
             <p className='body-tex !text-left'>Our experienced team becomes <span className='font-bold'>your</span> recruitment team. We know how to navigate the
-              challenges of hiring in industries like <span className='font-bold'>IT, technology, and consulting,</span> helping you
+              challenges of hiring in industries like <span className='font-bold'>IT, engineering, and finance,</span> helping you
               attract and secure top talent with ease. You gain the expertise and efficiency of a full
               talent acquisition team—<span className='font-bold'>without the heavy price tag.</span>
             </p>
