@@ -56,7 +56,7 @@ export const faqData = {
     },
     {
       question: "14. What industries does Hiring Zen specialize in?",
-      answer: "While Hiring Zen focuses primarily on IT, technology, and consulting sectors, our recruitment services are versatile and can be tailored to suit a variety of industries. Contact us to discuss your specific needs.",
+      answer: "While Hiring Zen focuses primarily on IT, engineering, and finance sectors, our recruitment services are versatile and can be tailored to suit a variety of industries. Contact us to discuss your specific needs.",
     },
     
   ]
